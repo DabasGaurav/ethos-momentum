@@ -3,347 +3,190 @@
 <style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Momentum Rules Engine</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
-:root{--bg:#f3f3f1;--card:#fff;--fg:#1b1f1d;--mut:#62706a;--line:#e1e3df;--rail:#0e4a3d;--rail2:#165c4c;--acc:#0e4a3d;--acc2:#e3eeea;--red:#b0392c;--redbg:#fbebe8;--amb:#9a6200;--ambbg:#fcf1dc;--grn:#1b7448;--grnbg:#e2f3e9;color-scheme:light}
+:root{--bg:#f3f3f1;--card:#fff;--fg:#1b1f1d;--mut:#66726d;--line:#e3e5e1;--rail:#0e4a3d;--acc:#0e4a3d;--acc2:#e3eeea;--red:#b0392c;--redbg:#fbebe8;--amb:#9a6200;--ambbg:#fcf1dc;--grn:#1b7448;--grnbg:#e2f3e9;color-scheme:light}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--fg);font:14px/1.5 "Public Sans",system-ui,sans-serif}
+body{background:var(--bg);color:var(--fg);font:15px/1.55 "Public Sans",system-ui,sans-serif}
 .mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
-.app{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:100vh}
-.rail{background:var(--rail);color:#dfeee9;padding:18px 10px;position:sticky;top:0;height:100vh;overflow:auto;display:flex;flex-direction:column;gap:2px}
-.brand{padding:0 10px 14px;font-size:12px;line-height:1.3;color:#9cc3b7}.brand b{display:block;font:600 19px "Source Serif 4",Georgia,serif;color:#fff}
-.rail .sec{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#9cc3b7;padding:12px 10px 4px}
-.rail a{color:#dfeee9;text-decoration:none;padding:7px 10px;border-radius:6px;font-size:13px;display:flex;gap:8px;align-items:center}
-.rail a:hover{background:var(--rail2)}.rail a.on{background:#e3eeea;color:var(--rail);font-weight:600}
-.rail .dot{width:8px;height:8px;border-radius:50%;flex:none}
-.main{min-width:0;padding-block:26px 60px;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
-.wrap{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
-@media(max-width:860px){.app{grid-template-columns:1fr}.rail{position:sticky;top:0;z-index:5;height:auto;flex-direction:row;overflow-x:auto;padding:8px max(16px,env(safe-area-inset-left,0px));gap:4px}.rail .sec,.brand{display:none}.rail a{white-space:nowrap;flex:none}.main{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
-h1{font:600 34px/1.15 "Source Serif 4",Georgia,serif;margin:0;text-wrap:balance}
-h2{font:600 26px/1.2 "Source Serif 4",Georgia,serif;margin:0;text-wrap:balance}
-h3{margin:0 0 8px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:600}
-.lede{color:var(--mut);max-width:72ch;margin:0;font-size:15px}
-.eyebrow{font-size:12px;color:var(--mut);letter-spacing:.04em}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;min-width:0}
-.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.gA{display:grid;grid-template-columns:minmax(0,1.75fr) minmax(0,1fr);gap:14px;align-items:start}
-.gS{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) minmax(0,.9fr);gap:14px;align-items:start}
-@media(max-width:900px){.g2,.gA,.gS{grid-template-columns:1fr}}
-.quote{border-left:3px solid var(--acc);padding:6px 0 6px 12px;font-size:14px}
-.quote small{display:block;color:var(--mut);font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
-button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--fg);padding:8px 14px}
+.app{display:grid;grid-template-columns:190px minmax(0,1fr);min-height:100vh}
+.rail{background:var(--rail);padding:22px 10px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:2px}
+.brand{padding:0 10px 18px;font:600 20px "Source Serif 4",Georgia,serif;color:#fff}
+.rail a{color:#dfeee9;text-decoration:none;padding:8px 10px;border-radius:6px;font-size:14px}
+.rail a:hover{background:#165c4c}.rail a.on{background:var(--acc2);color:var(--rail);font-weight:600}
+.rail .gap{height:12px}
+.main{min-width:0;padding-block:40px 60px;padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px))}
+.wrap{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+@media(max-width:820px){.app{grid-template-columns:1fr}.rail{position:sticky;top:0;z-index:5;height:auto;flex-direction:row;overflow-x:auto;padding:8px max(16px,env(safe-area-inset-left,0px))}.brand,.rail .gap{display:none}.rail a{white-space:nowrap;flex:none}.main{padding-block:24px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
+h1{font:600 36px/1.15 "Source Serif 4",Georgia,serif;margin:0;text-wrap:balance}
+h2{font:600 28px/1.2 "Source Serif 4",Georgia,serif;margin:0;text-wrap:balance}
+.lab{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:600;margin-bottom:8px}
+.sub{color:var(--mut);margin:0;max-width:60ch}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;min-width:0}
+.cols{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;align-items:start}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media(max-width:820px){.cols,.three{grid-template-columns:1fr}}
+.quote{border-left:3px solid var(--acc);padding-left:12px;color:var(--mut)}
+button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--fg);padding:9px 16px}
 button.pri{background:var(--acc);color:#fff;border-color:var(--acc)}
-.navbtns{display:flex;justify-content:space-between;gap:8px;margin-top:6px}
-.tag{display:inline-block;font:600 12px "IBM Plex Mono",monospace;padding:2px 8px;border-radius:5px;white-space:nowrap}
+.nav{display:flex;justify-content:space-between}
+.tag{display:inline-block;font:500 13px "IBM Plex Mono",monospace;padding:3px 10px;border-radius:6px}
+.big{font-size:20px;padding:5px 14px}
 .t-Full{background:var(--grnbg);color:var(--grn)}.t-Capped{background:var(--ambbg);color:var(--amb)}.t-As-paid{background:var(--redbg);color:var(--red)}
-.ok{color:var(--grn)}.bad{color:var(--red)}.warn{color:var(--amb)}
-.note{font-size:12px;color:var(--mut)}
-.ovf{overflow-x:auto}
-table{border-collapse:collapse;width:100%;font-size:13px}
-th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
-thead th{font-size:10.5px;font-weight:600;color:var(--mut);text-transform:uppercase;letter-spacing:.04em;background:#fafaf8}
-tr.hl td{background:#eef5f2}
-.pipe{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
-.pipe>div{padding:14px;border-right:1px solid var(--line);min-width:0}.pipe>div:last-child{border-right:0}
-@media(max-width:900px){.pipe{grid-template-columns:1fr}.pipe>div{border-right:0;border-bottom:1px solid var(--line)}}
-.stepn{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--acc);color:#fff;font:600 12px "IBM Plex Mono",monospace;margin-right:6px;flex:none}
-.pipe h4,.flow h4{margin:0 0 8px;font-size:14px;display:flex;align-items:center}
-.kv{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:3px 0}
-.kv span:last-child{font-family:"IBM Plex Mono",monospace;text-align:right}
-.cmp{display:grid;grid-template-columns:34px minmax(0,1fr) 40px;gap:8px;align-items:center;font-size:12px;margin:7px 0 0}
-.tr{position:relative;height:12px;background:var(--bg);border-radius:3px}
-.tr i{position:absolute;top:0;bottom:0;left:0;border-radius:3px}
+.tier{border-radius:12px;padding:16px}.tier b{font:500 13px "IBM Plex Mono",monospace;letter-spacing:.05em}.tier p{margin:6px 0 0;font-size:14px}
+.tier.f{background:var(--grnbg)}.tier.c{background:var(--ambbg)}.tier.a{background:var(--redbg)}
+.steps{display:flex;flex-direction:column}
+.st{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.st:last-child{border-bottom:0}
+.n{width:26px;height:26px;border-radius:50%;background:var(--acc);color:#fff;font:500 13px "IBM Plex Mono",monospace;display:grid;place-items:center}
+.st b{display:block;margin-bottom:2px}
+.cmp{display:grid;grid-template-columns:36px minmax(0,1fr) 42px;gap:10px;align-items:center;font-size:13px;margin-top:6px}
+.tr{position:relative;height:10px;background:var(--bg);border-radius:3px}
+.tr i{position:absolute;inset:0 auto 0 0;border-radius:3px}
 .tr s{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--fg)}
-.agent{border:1px solid var(--line);border-radius:14px;background:var(--card);overflow:hidden}
-.agent .top{background:var(--rail);color:#fff;padding:10px 14px;font-size:12px;display:flex;justify-content:space-between}
-.agent .body{padding:14px;display:flex;flex-direction:column;gap:8px}
+.agent{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--card)}
+.agent .top{background:var(--rail);color:#fff;padding:10px 16px;font-size:13px}
+.agent .body{padding:18px;display:flex;flex-direction:column;gap:10px}
 .bar{height:8px;border-radius:4px;background:var(--line);overflow:hidden}.bar i{display:block;height:100%;background:var(--acc)}
-.try{background:var(--acc2);border:1px solid #c7ddd5;border-radius:10px;padding:12px 14px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-.try b{font-size:13px}.try input[type=range]{flex:1;min-width:160px;accent-color:var(--acc)}
-.switch{display:inline-flex;align-items:center;gap:8px;font-size:13px;cursor:pointer}
-.switch input{accent-color:var(--acc);width:16px;height:16px}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
-.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}
-.kpi .v{font:600 21px "IBM Plex Mono",monospace;margin-top:2px}
-.kpi .s{font-size:12px;color:var(--mut)}
-.tiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-@media(max-width:700px){.tiers{grid-template-columns:1fr}}
-.tierbox{border-radius:10px;padding:12px;border:1px solid}
-.tierbox.f{background:var(--grnbg);border-color:#b9dcc8}.tierbox.c{background:var(--ambbg);border-color:#ecd3a6}.tierbox.a{background:var(--redbg);border-color:#efc4bd}
-.tierbox b{font:600 13px "IBM Plex Mono",monospace;letter-spacing:.04em}
-.tierbox div{font-size:13px;margin-top:4px}
-.flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-@media(max-width:900px){.flow{grid-template-columns:1fr}}
-.rules li{margin:8px 0}
-.foot{font-size:12px;color:var(--mut);border-top:1px solid var(--line);padding-top:10px}
-input[type=number]{width:64px;font:12px "IBM Plex Mono",monospace;padding:3px 4px;border:1px solid var(--line);border-radius:6px;text-align:right;background:#fbfbfa;color:var(--fg)}
-select{font:inherit;font-size:12px;padding:3px;border-radius:6px;border:1px solid var(--line);background:#fff;color:var(--fg);max-width:62%}
-.row{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:4px 0;font-size:13px}
-.step{display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;padding:8px 0;border-bottom:1px dashed var(--line)}.step:last-child{border-bottom:0}
-.num{width:20px;height:20px;border-radius:50%;background:var(--acc2);color:var(--acc);font:600 11px "IBM Plex Mono",monospace;display:grid;place-items:center}
-.step .out{font:12px "IBM Plex Mono",monospace;margin-top:2px;white-space:normal}
-.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{border-radius:999px;padding:5px 12px;font-size:13px}.chip.on{background:var(--acc2);border-color:var(--acc);color:var(--acc);font-weight:600}
+.kv{display:flex;justify-content:space-between;gap:10px;font-size:14px}.kv span:last-child{font-family:"IBM Plex Mono",monospace}
+.try{background:var(--acc2);border-radius:12px;padding:14px 16px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;font-size:14px}
+.try input[type=range]{flex:1;min-width:160px;accent-color:var(--acc)}
+.try label{display:flex;gap:8px;align-items:center;cursor:pointer}.try input[type=checkbox]{accent-color:var(--acc);width:17px;height:17px}
+.ok{color:var(--grn)}.bad{color:var(--red)}
+.muted{color:var(--mut);font-size:13px}
+ol.rules{margin:0;padding-left:20px}ol.rules li{margin:8px 0}
 [hidden]{display:none!important}
 </style>
 
 <div class="app">
   <nav class="rail" id="rail">
-    <div class="brand">Ethos · backend prototype<b>Momentum</b></div>
-    <div class="sec">Walkthrough</div>
-    <a href="#start" data-p="start">Start here</a>
-    <a href="#how" data-p="how">How it works</a>
-    <div class="sec">The four agents</div>
-    <a href="#priya" data-p="priya"><span class="dot" style="background:#e8b65a"></span>Priya</a>
-    <a href="#dana" data-p="dana"><span class="dot" style="background:#6cc191"></span>Dana</a>
-    <a href="#leo" data-p="leo"><span class="dot" style="background:#e8b65a"></span>Leo</a>
-    <a href="#marcus" data-p="marcus"><span class="dot" style="background:#e8b65a"></span>Marcus</a>
-    <a href="#ruth" data-p="ruth"><span class="dot" style="background:#6cc191"></span>The veteran</a>
-    <div class="sec">Agency</div>
+    <div class="brand">Momentum</div>
+    <a href="#start" data-p="start">Overview</a>
+    <div class="gap"></div>
+    <a href="#priya" data-p="priya">Priya</a>
+    <a href="#dana" data-p="dana">Dana</a>
+    <a href="#leo" data-p="leo">Leo</a>
+    <a href="#marcus" data-p="marcus">Marcus</a>
+    <div class="gap"></div>
     <a href="#summit" data-p="summit">Summit</a>
-    <div class="sec">Under the hood</div>
-    <a href="#sandbox" data-p="sandbox">Sandbox</a>
-    <a href="#rules" data-p="rules">The rulebook</a>
+    <a href="#rules" data-p="rules">Rules</a>
   </nav>
   <main class="main"><div class="wrap" id="page"></div></main>
 </div>
 
 <script>
-/* ===== ENGINE: the same rules as the two-pager ===== */
-const C={MIN:20,Z:2,ASPAID_X:2,ADV:1000,FULL_LIMIT:50000,CAP_MAX:30000,CAP_BASE:10000,DEBT_SHARE:1/3,START_ALLOW:400000};
-const SEG={wf:{n:"Term Life · $20–60/mo · working-family income",prem:480,p:{4:.86,7:.79,13:.72}},st:{n:"Term Life · $60+/mo · middle income",prem:900,p:{4:.92,7:.88,13:.84}}};
-const W=[4,7,13],TIERS=["As-paid","Capped","Full"];
-const pct=x=>(x*100).toFixed(0)+"%",usd=x=>"$"+Math.round(x).toLocaleString("en-US"),k$=x=>x>=1e6?"$"+(x/1e6).toFixed(1)+"M":x>=1e3?"$"+Math.round(x/1e3)+"k":usd(x);
-const blank=()=>({4:0,7:0,13:0}),clone=o=>JSON.parse(JSON.stringify(o));
-function engine(a,o){
-  o=Object.assign({err:true,repl:true},o||{});const seg=SEG[a.seg].p,m={},p={};
+/* Engine: same rules as the two-pager. Thresholds illustrative. */
+const C={MIN:20,Z:2,X:2,ADV:1000,FULL:50000,CAPMAX:30000,CAPBASE:10000,ALLOW:400000};
+const PEER={4:.86,7:.79,13:.72},W=[4,7,13],TIERS=["As-paid","Capped","Full"];
+const pct=x=>Math.round(x*100)+"%",k$=x=>x>=1e6?"$"+(x/1e6).toFixed(1)+"M":"$"+Math.round(x/1e3)+"k";
+const z0=()=>({4:0,7:0,13:0}),clone=o=>JSON.parse(JSON.stringify(o));
+function engine(a,o){o=Object.assign({err:true,repl:true},o);const m={},p={};
   W.forEach(w=>{m[w]=a.m[w]-(o.err?a.e[w]:0);p[w]=a.p[w]+(o.repl?0:a.r[w]);});
-  const elig=W.filter(w=>m[w]>=C.MIN);
-  const cmp=elig.map(w=>{const you=p[w]/m[w],peer=seg[w],yl=1-you,pl=1-peer,z=(yl-pl)/Math.sqrt(pl*(1-pl)/m[w]);return{w,you,peer,yl,pl,z,x:yl/pl};});
-  let target,why;
-  if(!elig.length){target="Capped";why="Too few policies old enough to judge, so treated as new";}
-  else{const sig=cmp.filter(c=>c.z>C.Z),ap=sig.filter(c=>c.w>=7&&c.x>=C.ASPAID_X);
-    if(ap.length){target="As-paid";why=`Lapsing ${ap[0].x.toFixed(1)}× peers at ${ap[0].w} months: too big to be luck`;}
-    else if(sig.length){target="Capped";why=`Clearly worse than peers at ${sig.map(c=>c.w+" months").join(" and ")}, but under 2×`;}
-    else if(cmp.every(c=>c.yl<=c.pl)){target="Full";why="In line with or better than peers at every window";}
-    else{target="stay";why="Slightly worse than peers, but within luck: no change";}}
-  let tier;
-  if(a.cur==="new")tier=target==="As-paid"?"As-paid":"Capped";
-  else{const ci=TIERS.indexOf(a.cur);if(target==="stay")tier=a.cur;else{const ti=TIERS.indexOf(target);tier=ti<ci?target:TIERS[Math.min(ti,ci+1)];}}
-  if(a.cur==="new"&&target==="Full")why+="; new agents start Capped";
-  const gross=tier==="Full"?C.FULL_LIMIT:tier==="Capped"?Math.min(C.CAP_MAX,C.CAP_BASE+a.paid4*C.ADV):0;
-  const lim=Math.max(0,gross-a.debt),used=a.open*C.ADV,per=Math.min(a.debt,a.pay*C.DEBT_SHARE);
-  const rep=a.repl?{full:a.repl*C.ADV,only:Math.round(a.repl*C.ADV*a.extra)}:null;
-  return{tier,target,why,gross,lim,used,per,rep,cmp,elig,m,p,removed:o.err?a.e[4]+a.e[7]+a.e[13]:0,counted:o.repl?a.r[4]+a.r[7]+a.r[13]:0};
-}
+  const cmp=W.filter(w=>m[w]>=C.MIN).map(w=>{const you=p[w]/m[w],yl=1-you,pl=1-PEER[w];return{w,you,yl,pl,z:(yl-pl)/Math.sqrt(pl*(1-pl)/m[w]),x:yl/pl};});
+  let t,why;
+  if(!cmp.length){t="Capped";why="Too few policies old enough to judge yet";}
+  else{const sig=cmp.filter(c=>c.z>C.Z),ap=sig.filter(c=>c.w>=7&&c.x>=C.X);
+    if(ap.length){t="As-paid";why=`Lapsing ${ap[0].x.toFixed(1)}× peers at ${ap[0].w} months`;}
+    else if(sig.length){t="Capped";why="Clearly worse than peers, but under 2×";}
+    else if(cmp.every(c=>c.yl<=c.pl)){t="Full";why="In line with peers";}
+    else{t="stay";why="Within luck of peers";}}
+  let tier;if(a.cur==="new")tier=t==="As-paid"?t:"Capped";
+  else{const ci=TIERS.indexOf(a.cur);tier=t==="stay"?a.cur:(TIERS.indexOf(t)<ci?t:TIERS[Math.min(TIERS.indexOf(t),ci+1)]);}
+  const gross=tier==="Full"?C.FULL:tier==="Capped"?Math.min(C.CAPMAX,C.CAPBASE+a.paid4*C.ADV):0;
+  return{tier,why,gross,lim:Math.max(0,gross-a.debt),used:a.open*C.ADV,cmp,removed:o.err?a.e[4]+a.e[7]+a.e[13]:0};}
 
-/* ===== The case agents (illustrative data) ===== */
+/* The case agents. Illustrative data. */
 const S={
- priya:{name:"Priya",role:"New agent · Summit · joined 6 weeks ago",seg:"wf",cur:"new",m:blank(),p:blank(),e:blank(),r:blank(),open:3,paid4:0,debt:1400,pay:900,repl:0,extra:0,
-  quote:"Priya joined six weeks ago. Two of her first three policies have already lapsed. She's eager and has asked for training."},
- dana:{name:"Dana",role:"Agent · solid 2-year record",seg:"wf",cur:"Full",m:{4:60,7:70,13:55},p:{4:44,7:55,13:41},e:{4:10,7:2,13:0},r:blank(),open:14,paid4:44,debt:0,pay:4200,repl:0,extra:0,
-  quote:"Last quarter her lapses spiked, all within the same few weeks. During those weeks, Ethos had a problem that charged many customers on the wrong date."},
- leo:{name:"Leo",role:"Agent · one of the highest-volume on Ethos",seg:"wf",cur:"Full",m:{4:400,7:300,13:150},p:{4:340,7:210,13:99},e:{4:3,7:2,13:1},r:{4:30,7:45,13:28},open:48,paid4:340,debt:0,pay:15000,repl:70,extra:.12,
-  quote:"Many of his customers cancel their policy and then buy a new Ethos policy from him, which earns him a fresh upfront commission. He says he's finding them better coverage."},
- marcus:{name:"Marcus",role:"Manager · Summit · leads a 24-agent team",seg:"wf",cur:"Full",m:{4:130,7:110,13:80},p:{4:101,7:73,13:40},e:{4:4,7:3,13:2},r:blank(),open:22,paid4:101,debt:18400,pay:9000,repl:0,extra:0,
-  quote:"Marcus manages one of Summit's largest and most productive teams. His own sales lapse often, and he owes Ethos money. If he leaves, his team will likely follow him."},
- ruth:{name:"Ruth",role:"Veteran agent · 6 years · not at Summit",seg:"st",cur:"Full",m:{4:90,7:85,13:70},p:{4:87,7:80,13:63},e:{4:1,7:1,13:0},r:blank(),open:12,paid4:87,debt:0,pay:6000,repl:0,extra:0,
-  quote:"My customers almost never lapse. Why do I get the same deal as people who write bad business?"}
-};
-const BASE=clone(S);
-const st={pt:0,err:true,repl:true,mp:51,rec:0,agErr:true,sb:"marcus",sbo:{err:true,repl:true}};
+ priya:{name:"Priya",cur:"new",m:z0(),p:z0(),e:z0(),r:z0(),open:3,paid4:0,debt:1400,
+  q:"Joined six weeks ago. Two of her first three policies have already lapsed.",
+  why:"Three policies can't tell skill from luck. She keeps the advance at sale within a limit that grows as her customers pay."},
+ dana:{name:"Dana",cur:"Full",m:{4:60,7:70,13:55},p:{4:44,7:55,13:41},e:{4:10,7:2,13:0},r:z0(),open:14,paid4:44,debt:0,
+  q:"Solid two-year record. Her lapses spiked in the weeks Ethos charged customers on the wrong date.",
+  why:"The lapses our billing caused come off her record and their clawbacks are refunded."},
+ leo:{name:"Leo",cur:"Full",m:{4:400,7:300,13:150},p:{4:340,7:210,13:99},e:{4:3,7:2,13:1},r:{4:30,7:45,13:28},open:48,paid4:340,debt:0,
+  q:"Many customers cancel and rebuy from him, earning him a fresh advance each time.",
+  why:"Replacements that don't help the customer count as lapses for him. New replacements earn an advance only on extra premium."},
+ marcus:{name:"Marcus",cur:"Full",m:{4:130,7:110,13:80},p:{4:101,7:73,13:40},e:{4:4,7:3,13:2},r:z0(),open:22,paid4:101,debt:18400,
+  q:"Leads a large, productive Summit team. His own sales lapse often and he owes Ethos money.",
+  why:"Clearly worse than peers but under 2×, so Capped, not As-paid. His debt cuts his limit. His team is judged one by one."}};
+const st={pt:0,err:true,repl:true,mp:51,rec:0};
 
-/* ===== What ops sees: a row in the format of Ethos's Performance page ===== */
-const ETHOS_HEAD=`<thead><tr><th>Name</th><th>Issued premium</th><th>In-force IP</th><th>Compensation tier</th><th>4M</th><th>7M</th><th>13M</th><th>Chargeback total</th><th>Personal</th></tr></thead>`;
-function ethosRow(a,r,hl){const prem=SEG[a.seg].prem,written=a.m[4]+a.open,ip=written*prem,inf=(r.p[4]+a.open*.92)*prem,cb=Math.max(0,a.m[4]-a.p[4])*C.ADV;
-  const per=W.map(w=>{const c=r.cmp.find(c=>c.w===w);return`<td class="mono ${c&&c.z>C.Z?"bad":""}">${c?pct(c.you):"–"}</td>`;}).join("");
-  return`<tr class="${hl?"hl":""}"><td><b>${a.name}</b></td><td class="mono">${usd(ip)}</td><td class="mono">${usd(inf)}</td><td><span class="tag t-${r.tier}">${r.tier}</span></td>${per}<td class="mono">${usd(cb)}</td><td class="mono">${usd(cb)}</td></tr>`;}
+function priyaAt(t){const a=clone(S.priya);if(!t)return a;a.cur="Capped";const m4=t<3?0:3+4*(t-3);
+  a.m={4:m4,7:0,13:0};a.p={4:m4?m4-2-Math.round((m4-3)*.05):0,7:0,13:0};a.paid4=a.p[4];a.open=Math.max(0,3+4*t-a.p[4]);a.debt=Math.max(0,1400-300*t);return a;}
+const TRY={
+ priya:{c:()=>`<span>Fast-forward</span><input type="range" min="0" max="9" value="${st.pt}" oninput="st.pt=+this.value;render()"><span class="mono">${st.pt?st.pt+" mo":"today"}</span>`,d:()=>priyaAt(st.pt)},
+ dana:{c:()=>`<label><input type="checkbox" ${st.err?"checked":""} onchange="st.err=this.checked;render()">Remove lapses our billing caused</label>`,o:()=>({err:st.err})},
+ leo:{c:()=>`<label><input type="checkbox" ${st.repl?"checked":""} onchange="st.repl=this.checked;render()">Count replacements that didn't help the customer</label>`,o:()=>({repl:st.repl})},
+ marcus:{c:()=>`<span>His 13-month persistency</span><input type="range" min="30" max="80" value="${st.mp}" oninput="st.mp=+this.value;render()"><span class="mono">${st.mp}%</span><span class="muted">peers 72%</span>`,
+  d:()=>{const a=clone(S.marcus);a.p[13]=Math.round((a.m[13]-a.e[13])*st.mp/100);return a;}}};
 
-/* ===== What the agent sees ===== */
-function agentCard(a,r){const t=r.tier;let head,way,x="";
-  if(t==="Full"){head="Standard advance at sale on every policy.";way="Keep your customers paying in line with agents like you and you stay here.";}
-  else if(t==="Capped"){head="Advance at sale, up to your limit.";way=!r.elig.length?"Your limit grows with every customer who pays past 4 months. Once enough policies have history and hold up, you move to Full.":"Your limit grows as customers pay. You move to Full when your recent policies are back in line with agents like you.";}
-  else{head="Paid as your customers pay. You keep selling.";way="You return to Capped once your recent policies hold up against agents like you.";}
-  if(r.removed)x+=`<div class="note ok">✓ ${r.removed} lapses caused by our billing removed; clawbacks refunded.</div>`;
-  if(r.rep)x+=`<div class="note">Replacements earn an advance only on extra premium.</div>`;
-  if(a.debt)x+=`<div class="note">You owe ${usd(a.debt)}. We recover ${usd(r.per)}/mo (at most a third of pay); it counts against your limit.</div>`;
-  if(r.used>r.lim&&t!=="As-paid")x+=`<div class="note bad">Over your limit: new sales are paid as customers pay until advances fall below ${k$(r.lim)}.</div>`;
-  const bar=t==="As-paid"?"":`<div class="kv"><span>Unearned advances</span><span>${k$(Math.min(r.used,r.lim))} / ${k$(r.lim)}</span></div><div class="bar"><i style="width:${r.lim?Math.min(100,r.used/r.lim*100):100}%"></i></div>`;
-  return`<div class="agent"><div class="top"><span>${a.name} · Performance</span><span>Agent portal</span></div><div class="body"><div class="note">Your compensation tier</div><div><span class="tag t-${t}" style="font-size:17px;padding:4px 12px">${t}</span></div><div style="font-weight:600">${head}</div>${bar}<div style="font-size:13px">${way}</div>${x}</div></div>`;}
+function agentView(a,r){const t=r.tier,line=t==="Full"?"Standard advance at sale.":t==="Capped"?"Advance at sale, up to your limit.":"Paid as your customers pay.";
+  const up=t==="Full"?"Keep customers paying like your peers to stay here.":t==="Capped"?"Your limit grows as customers pay. Back in line with peers moves you to Full.":"Back in line with peers moves you to Capped.";
+  return`<div class="agent"><div class="top">${a.name} · Agent portal</div><div class="body">
+   <span><span class="tag big t-${t}">${t}</span></span><b>${line}</b>
+   ${t==="As-paid"?"":`<div class="kv"><span>Limit</span><span>${k$(r.lim)}</span></div><div class="bar"><i style="width:${r.lim?Math.min(100,r.used/r.lim*100):100}%"></i></div>`}
+   <div class="muted">${up}</div>${r.removed?`<div class="muted ok">✓ ${r.removed} lapses we caused removed</div>`:""}</div></div>`;}
 
-/* ===== What Ethos computes: the three steps ===== */
-function pipeline(a,r){const seg=SEG[a.seg],ne=a.e[4]+a.e[7]+a.e[13],nr=a.r[4]+a.r[7]+a.r[13];
-  const s1=`<div><h4><span class="stepn">1</span>Correct billing errors</h4>
-   <div class="kv"><span>Lapses our billing caused</span><span class="${r.removed?"ok":ne?"warn":""}">${r.removed?"−"+r.removed+" removed":ne?ne+" kept (what-if)":"none found"}</span></div>
-   <div class="kv"><span>Replacements failing review</span><span class="${nr&&!r.counted?"warn":""}">${r.counted?r.counted+" counted":nr?"excused (what-if)":"none"}</span></div>
-   <div class="kv"><span>Policies ≥4 months old</span><span>${r.m[4]}</span></div>
-   <div class="note" style="margin-top:6px">A window counts once ${C.MIN}+ policies are that old.</div></div>`;
-  const s2=`<div><h4><span class="stepn">2</span>Compare with peers</h4><div class="note">${seg.n}</div>${r.cmp.length?r.cmp.map(c=>{const bad=c.z>C.Z;return`<div class="cmp"><span class="mono">${c.w}M</span><span class="tr"><i style="width:${c.you*100}%;background:${bad?"var(--red)":"var(--grn)"}"></i><s style="left:${c.peer*100}%"></s></span><span class="mono ${bad?"bad":"ok"}">${pct(c.you)}</span></div>`;}).join("")+`<div class="note" style="margin-top:6px">Bar: customers still paying. Tick: peers. Red: gap too big to be luck.</div>`:`<div class="note" style="margin-top:10px">Nothing to compare yet: no window has ${C.MIN} policies old enough.</div>`}</div>`;
-  const s3=`<div><h4><span class="stepn">3</span>Set tier and limit</h4><div><span class="tag t-${r.tier}" style="font-size:15px">${r.tier}</span> <span class="note">was ${a.cur==="new"?"new":a.cur}</span></div><div style="font-size:13px;margin:6px 0">${r.why}.</div>
-   ${r.tier==="As-paid"?`<div class="kv"><span>Advance limit</span><span>$0</span></div>`:`<div class="kv"><span>Tier limit</span><span>${usd(r.gross)}</span></div>${a.debt?`<div class="kv"><span>− debt still owed</span><span>${usd(a.debt)}</span></div>`:""}<div class="kv" style="font-weight:600"><span>Can advance now</span><span>${usd(r.lim)}</span></div>`}
-   ${r.rep?`<div class="kv"><span>Advance on ${a.repl} replacements</span><span>${usd(r.rep.only)}</span></div><div class="note">instead of ${usd(r.rep.full)} today</div>`:""}</div>`;
-  return`<div class="pipe">${s1}${s2}${s3}</div>`;}
+function agentPage(k){const a=TRY[k].d?TRY[k].d():S[k],r=engine(a,TRY[k].o?TRY[k].o():{});
+  const cmp=r.cmp.length?r.cmp.map(c=>{const bad=c.z>C.Z;return`<div class="cmp"><span class="mono">${c.w}M</span><span class="tr"><i style="width:${c.you*100}%;background:${bad?"var(--red)":"var(--grn)"}"></i><s style="left:${PEER[c.w]*100}%"></s></span><span class="mono ${bad?"bad":""}">${pct(c.you)}</span></div>`;}).join(""):`<div class="muted">Nothing old enough to compare yet</div>`;
+  return`<h2>${a.name}</h2><div class="quote">${S[k].q}</div>
+  <div class="try">${TRY[k].c()}</div>
+  <div class="cols"><div class="card"><div class="lab">Engine</div><div class="steps">
+    <div class="st"><span class="n">1</span><div><b>Correct billing errors</b><span class="muted">${r.removed?r.removed+" lapses removed":"none found"}</span></div></div>
+    <div class="st"><span class="n">2</span><div><b>Compare with peers</b><span class="muted">Share still paying · tick = peers</span>${cmp}</div></div>
+    <div class="st"><span class="n">3</span><div><b>Set tier</b><span class="tag t-${r.tier}">${r.tier}</span> <span class="muted">${r.why}</span></div></div></div></div>
+   <div><div class="lab">What ${a.name} sees</div>${agentView(a,r)}</div></div>
+  <p class="sub">${S[k].why}</p>${nav(k)}`;}
 
-/* ===== Agent pages ===== */
-const ORDER=["start","how","priya","dana","leo","marcus","ruth","summit","sandbox","rules"];
-const TITLE={start:"Start here",how:"How it works",priya:"Priya",dana:"Dana",leo:"Leo",marcus:"Marcus",ruth:"The veteran",summit:"Summit",sandbox:"Sandbox",rules:"The rulebook"};
-function navBtns(p){const i=ORDER.indexOf(p),pr=ORDER[i-1],nx=ORDER[i+1];return`<div class="navbtns">${pr?`<button onclick="go('${pr}')">← ${TITLE[pr]}</button>`:"<span></span>"}${nx?`<button class="pri" onclick="go('${nx}')">${TITLE[nx]} →</button>`:"<span></span>"}</div>`;}
-function priyaAt(t){const a=clone(BASE.priya);if(t===0)return a;
-  a.cur="Capped";const m4=t<3?0:3+4*(t-3);a.m={4:m4,7:0,13:0};a.p={4:m4?m4-2-Math.round((m4-3)*.05):0,7:0,13:0};
-  a.paid4=a.p[4];a.open=Math.max(0,3+4*t-a.p[4]);a.debt=Math.max(0,1400-300*t);return a;}
-const AP={
- priya:{h:"Priya: Capped, with a limit that grows as her customers pay",
-  try:()=>`<b>Fast-forward:</b><input type="range" min="0" max="9" value="${st.pt}" oninput="st.pt=+this.value;render()"><span class="mono">${st.pt?st.pt+" months later":"today"}</span><span class="note">She sells ~4 policies a month; after the sales review her customers keep paying.</span>`,
-  data:()=>priyaAt(st.pt),
-  why:"Three policies can't separate skill from bad luck, so we don't judge her yet. We cap what we can lose and let her limit grow with every customer who keeps paying. Her two lapses are checked against our billing log, and we review both sales with her: cover matched to budget, payment date set to payday.",
-  cost:"Some losses on new agents, but only up to their limit. She keeps the advance at sale, which is why agents choose Ethos."},
- dana:{h:"Dana: stays Full, because the spike was ours",
-  try:()=>`<label class="switch"><input type="checkbox" ${st.err?"checked":""} onchange="st.err=this.checked;render()"> Remove lapses our billing caused</label><span class="note">Untick to see what a blunt lapse rule would do to her.</span>`,
-  opt:()=>({err:st.err}),
-  why:"She stays Full while we reconcile the spike. The lapses and clawbacks that our billing log links to wrong-date charges are removed and refunded. Without this step she would drop to Capped for our own mistake.",
-  cost:"We absorb the cost of our own errors. That's the price of agents trusting the system."},
- leo:{h:"Leo: Capped, and no more fresh advances for moving the same customer",
-  try:()=>`<label class="switch"><input type="checkbox" ${st.repl?"checked":""} onchange="st.repl=this.checked;render()"> Count replacements that failed review against him</label><span class="note">Untick to see the loophole as it works today.</span>`,
-  opt:()=>({repl:st.repl}),
-  why:"Moving a customer to near-identical cover doesn't help them but earns Leo a fresh advance. Replacements that fail review count as lapses for the agent who made them, which puts him clearly below peers. From now on a replacement earns an advance only on extra premium.",
-  cost:"Much of Leo's volume and some slower genuine upgrades. Replacements that review finds really helped the customer come off his record."},
- marcus:{h:"Marcus: Capped on his own sales; his team is judged one by one",
-  try:()=>`<b>His 13-month persistency (assumed):</b><input type="range" min="30" max="80" value="${st.mp}" oninput="st.mp=+this.value;render()"><span class="mono">${st.mp}% <span class="note">peers 72%</span></span><span class="note">At about 44% or lower he lapses at 2× peers and the same rule puts him on As-paid.</span>`,
-  data:()=>{const a=clone(BASE.marcus);a.p[13]=Math.round((a.m[13]-a.e[13])*st.mp/100);return a;},
-  why:"His own sales lapse clearly more than similar customers explain, so the rule moves him from Full to Capped. Not As-paid: that's reserved for twice peers. His debt already cuts what we can advance him. Exempting him would bring back the one-off exceptions this program ends.",
-  cost:"We knowingly risk losing Marcus and his team. His tier rests only on his own sales; his team's tiers don't depend on his."},
- ruth:{h:"The veteran: Full, with the highest limit",
-  why:"Her customers keep paying better than peers, so she keeps the standard advance on every policy and the highest limit. She no longer gets the same deal as agents who write bad business: they now carry lower limits or are paid as customers pay.",
-  cost:"Nothing for her. She's the agent we most want to keep."}};
-function agentPage(k){const P=AP[k],a=P.data?P.data():S[k],r=engine(a,P.opt?P.opt():{});
-  return`<div class="eyebrow">The four agents · ${a.role}</div><h2>${P.h}</h2>
-  <div class="quote"><small>${k==="ruth"?"A veteran agent says":"The case says"}</small>${a.quote}</div>
-  ${P.try?`<div class="try">${P.try()}</div>`:""}
-  <div class="gA"><div style="display:flex;flex-direction:column;gap:12px;min-width:0">
-     <div><h3>What Ethos computes</h3>${pipeline(a,r)}</div>
-     <div class="card ovf" style="padding:0"><table>${ETHOS_HEAD}<tbody>${ethosRow(a,r,true)}</tbody></table></div>
-     <div class="note">Same columns as the Performance page in the Ethos agent portal, plus the new tier. Figures illustrative.</div></div>
-   <div><h3>What ${a.name} sees</h3>${agentCard(a,r)}</div></div>
-  <div class="g2"><div class="card"><h3>Why this is the right call</h3><div>${P.why}</div></div><div class="card"><h3>What we accept</h3><div>${P.cost}</div></div></div>
-  ${navBtns(k)}`;}
+const ORDER=["start","priya","dana","leo","marcus","summit","rules"],NAME={start:"Overview",priya:"Priya",dana:"Dana",leo:"Leo",marcus:"Marcus",summit:"Summit",rules:"Rules"};
+function nav(p){const i=ORDER.indexOf(p),a=ORDER[i-1],b=ORDER[i+1];return`<div class="nav">${a?`<button onclick="go('${a}')">← ${NAME[a]}</button>`:"<span></span>"}${b?`<button class="pri" onclick="go('${b}')">${NAME[b]} →</button>`:""}</div>`;}
 
-/* ===== Synthetic rosters for Summit and the platform view ===== */
+function startPage(){return`<h1>Each agent's advance follows how their customers pay.</h1>
+  <p class="sub">One rulebook for every agent. Ethos runs the check; agents see only their tier.</p>
+  <div class="three"><div class="tier f"><b>FULL</b><p>Advance at sale. In line with peers.</p></div>
+   <div class="tier c"><b>CAPPED</b><p>Advance at sale, up to a limit. New, or clearly worse than peers.</p></div>
+   <div class="tier a"><b>AS-PAID</b><p>Paid as customers pay. 2× peer lapses or worse.</p></div></div>
+  <div class="card"><div class="steps">
+   <div class="st"><span class="n">1</span><div><b>Correct billing errors</b><span class="muted">Lapses we caused never count against an agent.</span></div></div>
+   <div class="st"><span class="n">2</span><div><b>Compare with peers</b><span class="muted">Persistency at 4, 7 and 13 months vs agents with similar customers.</span></div></div>
+   <div class="st"><span class="n">3</span><div><b>Set tier</b><span class="muted">Down only on a gap too big to be luck. Up once back in line.</span></div></div></div></div>
+  <div class="nav"><span></span><button class="pri" onclick="go('priya')">See the four agents →</button></div>`;}
+
 function rng(s){return()=>{s=(s*1664525+1013904223)%4294967296;return s/4294967296;};}
-function mk(R,isNew,seg){seg=seg||"wf";const pk=SEG[seg].p;
-  if(isNew)return{seg,cur:"new",m:blank(),p:blank(),e:blank(),r:blank(),open:3+Math.floor(R()*12),paid4:0,debt:R()<.4?Math.round(R()*2500):0,pay:900,repl:0,extra:0,tl:.36};
-  const q=R(),sk=q<.05?-.2:q<.2?-.06:q<.65?0:.08,m={4:20+Math.floor(R()*60)};m[7]=Math.floor(m[4]*.75);m[13]=Math.floor(m[4]*.45);
-  const p={},e={};W.forEach(w=>{const tr=Math.min(.98,pk[w]+sk*(w/7));e[w]=Math.floor(m[w]*.14*R());p[w]=Math.round((m[w]-e[w])*tr);});
-  return{seg,cur:"Full",m,p,e,r:blank(),open:8+Math.floor(R()*24),paid4:p[4],debt:R()<.5?Math.round(R()*6000):0,pay:3000,repl:0,extra:0,tl:1-Math.min(.98,pk[13]+sk*(13/7))};}
-function summitRoster(rec){const R=rng(7),ro=[];for(let i=0;i<420;i++)ro.push(mk(R,i<300));const R2=rng(99);for(let i=0;i<rec;i++)ro.push(mk(R2,true));return ro;}
-function platform(){const R=rng(3),v=[];for(let i=0;i<300;i++)v.push(mk(R,false,R()<.5?"st":"wf"));return summitRoster(0).concat(v);}
-function tally(ro,o){const t={n:ro.length,Full:0,Capped:0,"As-paid":0,today:0,mom:0,lossT:0,lossM:0,fullT:0,fullM:0,book:0,debt:0,early:0,earlyN:0};
-  ro.forEach(a=>{const r=engine(a,o),u=a.open*C.ADV,mm=r.tier==="As-paid"?0:Math.min(u,r.lim);t[r.tier]++;t.today+=u;t.mom+=mm;t.lossT+=u*a.tl;t.lossM+=mm*a.tl;if(r.tier==="Full"){t.fullT+=u;t.fullM+=mm;}t.book+=a.paid4;t.debt+=a.debt;
-    if(a.m[4]){const n=a.m[4]-((o&&o.err===false)?0:a.e[4]);t.early+=n-a.p[4];t.earlyN+=n;}});return t;}
+function mk(R,isNew){if(isNew)return{cur:"new",m:z0(),p:z0(),e:z0(),r:z0(),open:3+Math.floor(R()*12),paid4:0,debt:R()<.4?Math.round(R()*2500):0};
+  const q=R(),sk=q<.05?-.2:q<.2?-.06:q<.65?0:.08,m={4:20+Math.floor(R()*60)};m[7]=Math.floor(m[4]*.75);m[13]=Math.floor(m[4]*.45);const p={},e={};
+  W.forEach(w=>{e[w]=Math.floor(m[w]*.14*R());p[w]=Math.round((m[w]-e[w])*Math.min(.98,PEER[w]+sk*w/7));});
+  return{cur:"Full",m,p,e,r:z0(),open:8+Math.floor(R()*24),paid4:p[4],debt:R()<.5?Math.round(R()*6000):0};}
+function summitPage(){const R=rng(7),ro=[];for(let i=0;i<420+st.rec;i++)ro.push(mk(R,i<300||i>=420));
+  const n={Full:0,Capped:0,"As-paid":0};let exp=0,book=0,debt=0;
+  ro.forEach(a=>{const r=engine(a);n[r.tier]++;exp+=r.tier==="As-paid"?0:Math.min(r.used,r.lim);book+=a.paid4;debt+=a.debt;});
+  const ceil=book*C.ADV+C.ALLOW-debt,over=exp>ceil;
+  return`<h2>Summit</h2><div class="quote">Fast-growing agency, mostly new agents. Same rules as everyone, plus an agency ceiling.</div>
+  <div class="try"><span>New recruits</span><input type="range" min="0" max="500" step="10" value="${st.rec}" oninput="st.rec=+this.value;render()"><span class="mono">${st.rec}</span></div>
+  <div class="cols"><div class="card"><div class="lab">Agency ceiling</div>
+    <div class="kv"><span>Advances outstanding</span><span>${k$(exp)}</span></div>
+    <div class="kv"><span>Ceiling (backed by paying customers)</span><span>${k$(ceil)}</span></div>
+    <div class="bar" style="margin:10px 0"><i style="width:${Math.min(100,exp/ceil*100)}%;background:${over?"var(--red)":"var(--acc)"}"></i></div>
+    <div class="${over?"bad":"ok"}">${over?"Over the ceiling: new sales are paid as customers pay until payments lift it.":"Under the ceiling: each agent gets their own tier's advance."}</div></div>
+   <div class="card"><div class="lab">${ro.length} agents</div>
+    <div class="kv"><span><span class="tag t-Full">Full</span></span><span>${n.Full}</span></div>
+    <div class="kv" style="margin:8px 0"><span><span class="tag t-Capped">Capped</span></span><span>${n.Capped}</span></div>
+    <div class="kv"><span><span class="tag t-As-paid">As-paid</span></span><span>${n["As-paid"]}</span></div></div></div>
+  <p class="sub">Recruiting faster than customers pay hits the ceiling. Nobody's tier changes; only new advances wait.</p>${nav("summit")}`;}
 
-/* ===== Pages ===== */
-function startPage(){const c=tally(platform());
-  return`<div class="eyebrow">Ethos · Agent Quality Program · backend prototype</div>
-  <h1>One rulebook decides how much Ethos advances each agent.</h1>
-  <p class="lede">Every night Momentum reads each agent's policies, removes lapses our billing caused, compares what's left with agents selling to similar customers, and sets how much we'll advance before customers pay. Ops sees the working. Agents see only their tier, their limit and the way up.</p>
-  <div class="tiers">
-   <div class="tierbox f"><b>FULL</b><div>Advance at sale, highest limit. Customers paying in line with peers.</div></div>
-   <div class="tierbox c"><b>CAPPED</b><div>Advance at sale up to a limit that grows as customers pay. New, or clearly worse than peers.</div></div>
-   <div class="tierbox a"><b>AS-PAID</b><div>Paid as customers pay; keeps selling. Lapsing at 2× peers or worse.</div></div></div>
-  <div><h3>The engine run across ~${c.n} illustrative agents: today's flat deal → Momentum</h3><div class="kpis">
-   <div class="kpi"><div class="s">Unearned advances outstanding</div><div class="v">${k$(c.today)} → ${k$(c.mom)}</div><div class="s">money paid ahead of customer payments</div></div>
-   <div class="kpi"><div class="s">Advances likely never earned</div><div class="v bad">${k$(c.lossT)} → ${k$(c.lossM)}</div><div class="s">weighted by each agent's lapse rate: ${pct(1-c.lossM/c.lossT)} less</div></div>
-   <div class="kpi"><div class="s">Advance kept by Full-tier agents</div><div class="v ok">${pct(c.fullM/c.fullT)}</div><div class="s">${c.Full} agents: good agents lose nothing</div></div>
-   <div class="kpi"><div class="s">Agents still paid at sale</div><div class="v ok">${pct((c.Full+c.Capped)/c.n)}</div><div class="s">nobody terminated for lapses</div></div></div></div>
-  <div class="g2"><div class="card"><h3>For the CFO</h3>Advances stop running ahead of evidence. New agents are limited, bad records are paid as customers pay, and debt counts against limits.</div><div class="card"><h3>For the Head of Sales</h3>Every agent keeps selling and good agents keep the full advance. The veteran finally gets a better deal than agents who write bad business.</div></div>
-  <div class="card"><h3>Two minutes, three stops</h3><ol style="margin:0;padding-left:18px"><li>See the three steps the engine runs.</li><li>Walk the four case agents. Each has one control that shows a rule at work.</li><li>Run Summit's 420 agents and push recruiting until it hits the agency ceiling.</li></ol></div>
-  <div class="navbtns"><span></span><button class="pri" onclick="go('how')">Start the walkthrough →</button></div>`;}
+function rulesPage(){return`<h2>Rules</h2><div class="card"><ol class="rules">
+  <li>Lapses our billing caused are removed; clawbacks refunded.</li>
+  <li>Persistency at 4, 7, 13 months vs similar customers, once ${C.MIN}+ policies are that old.</li>
+  <li>Gap too big to be luck → Capped. 2× peer lapses at 7 or 13 months → As-paid.</li>
+  <li>Back in line with peers → up one tier.</li>
+  <li>Limits in dollars; unpaid debt is subtracted.</li>
+  <li>Replacements earn an advance only on extra premium.</li>
+  <li>Agency ceiling: advances can't outrun paying customers.</li></ol></div>
+  <p class="muted">All data and thresholds illustrative.</p>${nav("rules")}`;}
 
-function howPage(){return`<div class="eyebrow">How it works</div><h2>Each agent goes through the same three steps</h2>
-  <p class="lede">Managers included. Agencies have a separate dollar ceiling. No one-off exceptions, no agency-specific rules.</p>
-  <div class="flow">
-   <div class="card"><h4><span class="stepn">1</span>Correct billing errors</h4><div>Remove lapses our billing log ties to wrong-date charges and refund their clawbacks. Replacements that fail review count against the agent who made them. Agents can contest a lapse.</div><div class="note" style="margin-top:8px">A lapse looks the same whether the customer ran out of money, the agent oversold, or we charged before payday.</div></div>
-   <div class="card"><h4><span class="stepn">2</span>Compare with peers</h4><div>Persistency at 4, 7 and 13 months (the 4M/7M/13M Ethos already reports) against agents selling similar policies to similar customers. A window counts once ${C.MIN}+ policies are that old.</div><div class="note" style="margin-top:8px">So agents serving tight-budget families aren't penalised for who they serve, and a few bad weeks can't move anyone.</div></div>
-   <div class="card"><h4><span class="stepn">3</span>Set tier and limit</h4><div>A gap too large to be luck at any window → Capped. Twice peers at 7 or 13 months → As-paid. Back in line → up one tier. Unpaid debt is subtracted from the limit.</div><div class="note" style="margin-top:8px">Moving down needs clear evidence; moving up needs only being back in line.</div></div></div>
-  <div class="g2"><div class="card"><h3>What agents see</h3>Their tier, their limit, and one sentence on how to move up. No peer rates, no statistics, no error logs.</div>
-   <div class="card"><h3>What the tier never does</h3>It changes only the advance. Nobody is terminated for lapses. A separate conduct review can pause new sales, only for suspected fraud or replacements that left customers worse off.</div></div>
-  ${navBtns("how")}`;}
-
-function summitPage(){const o={err:st.agErr},ro=summitRoster(st.rec),t=tally(ro,o);
-  const earlyRate=t.early/t.earlyN,peerEarly=1-SEG.wf.p[4],allow=earlyRate<=peerEarly?C.START_ALLOW:0,ceil=Math.max(0,t.book*C.ADV+allow-t.debt),over=t.mom>ceil;
-  const R3=rng(42),team=[];for(let i=0;i<10;i++){const a=mk(R3,i>=6);a.name="Team agent "+(i+1);team.push(a);}
-  const mA=Object.assign(clone(BASE.marcus),{name:"Marcus (own sales)"});
-  const rows=[ethosRow(mA,engine(mA,o),true)].concat(team.map(a=>ethosRow(a,engine(a,o),false))).join("");
-  return`<div class="eyebrow">Agency · Summit Financial</div><h2>Summit runs through the same rules, with no special treatment either way</h2>
-  <div class="quote"><small>Head of Sales</small>Summit is our best story this year. Clamp down too hard and they'll take their agents to a competitor within a week.</div>
-  <div class="try" style="flex-direction:column;align-items:stretch">
-   <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><b>New recruits this month:</b><input type="range" min="0" max="500" step="10" value="${st.rec}" oninput="st.rec=+this.value;render()"><span class="mono">${st.rec}</span></div>
-   <label class="switch"><input type="checkbox" ${st.agErr?"checked":""} onchange="st.agErr=this.checked;render()"> Days 1–30: remove lapses our billing caused</label></div>
-  <div class="kpis">
-   <div class="kpi"><div class="s">Summit agents run</div><div class="v">${t.n}</div><div class="s">Full ${t.Full} · Capped ${t.Capped} · As-paid ${t["As-paid"]}</div></div>
-   <div class="kpi"><div class="s">Unearned advances</div><div class="v">${k$(t.today)} → ${k$(t.mom)}</div><div class="s">flat deal → Momentum</div></div>
-   <div class="kpi"><div class="s">Likely never earned</div><div class="v bad">${k$(t.lossT)} → ${k$(t.lossM)}</div><div class="s">${pct(1-t.lossM/t.lossT)} less</div></div>
-   <div class="kpi"><div class="s">Still paid at sale</div><div class="v ok">${pct((t.Full+t.Capped)/t.n)}</div><div class="s">of Summit agents keep the advance</div></div></div>
-  <div class="g2">
-   <div class="card"><h3>Agency ceiling</h3>
-    <div class="kv"><span>Customers paying past 4 months × ${usd(C.ADV)}</span><span>${k$(t.book*C.ADV)}</span></div>
-    <div class="kv"><span>+ new-agency allowance</span><span>${allow?k$(allow):"$0 (withdrawn)"}</span></div>
-    <div class="kv"><span>− agents' existing debt</span><span>${k$(t.debt)}</span></div>
-    <div class="kv" style="font-weight:600;border-top:1px solid var(--line);margin-top:4px;padding-top:6px"><span>= Ceiling</span><span>${k$(ceil)}</span></div>
-    <div class="kv"><span>Advances outstanding</span><span>${k$(t.mom)}</span></div>
-    <div class="bar" style="margin:6px 0"><i style="width:${ceil?Math.min(100,t.mom/ceil*100):100}%;background:${over?"var(--red)":"var(--acc)"}"></i></div>
-    <div class="${over?"bad":"ok"}" style="font-weight:600;font-size:13px">${over?"Above ceiling: new Summit sales are paid as customers pay until payments lift it. Each agent's tier is unchanged.":"Under ceiling: each agent is advanced per their own tier."}</div>
-    <div class="note" style="margin-top:6px">Early missed payments ${(earlyRate*100).toFixed(1)}% vs peers ${(peerEarly*100).toFixed(1)}%, so the allowance ${allow?"stays":"is withdrawn"}. Untick the billing fix to see our own errors cost Summit its allowance.</div></div>
-   <div class="card"><h3>Summit's 90 days</h3><ol style="margin:0;padding-left:18px;font-size:13px">
-    <li><b>Days 1–30:</b> remove our billing errors, fix wrong-date billing, show every agent their tier and limit, set the ceiling.</li>
-    <li><b>Days 31–60:</b> rules apply to new sales. Most Summit agents are new, so Capped: still paid at sale.</li>
-    <li><b>Days 61–90:</b> weekly review with the founder on advances, early missed payments, replacements and retention.</li></ol>
-    <div class="note" style="margin-top:8px"><b>Willing to lose:</b> Summit's fastest growth; fast debt recovery; Summit itself if it insists on unlimited advances for unproven agents.</div></div></div>
-  <div><h3>Marcus's team, in the format of Ethos's hierarchy view</h3><div class="card ovf" style="padding:0"><table>${ETHOS_HEAD}<tbody>${rows}</tbody></table></div>
-  <div class="note" style="margin-top:6px">Each agent judged on their own record. Marcus's tier doesn't move anyone else's. Sample of 10 of his 24 agents.</div></div>
-  ${navBtns("summit")}`;}
-
-function sandboxPage(){const a=S[st.sb],r=engine(a,st.sbo);
-  const f=(path,v,step)=>`<input type="number" value="${v}" step="${step||1}" min="0" onchange="setv('${path}',this.value)">`;
-  let inp=`<div class="ovf"><table><thead><tr><th>Policies</th><th>≥4M</th><th>≥7M</th><th>≥13M</th></tr></thead><tbody>`;
-  [["m","That old"],["p","Still paying"],["e","Lapses we caused"],["r","Failed replacements"]].forEach(([k,l])=>{inp+=`<tr><td>${l}</td>${W.map(w=>`<td>${f(k+"."+w,a[k][w])}</td>`).join("")}</tr>`;});
-  inp+=`</tbody></table></div><div style="margin-top:8px">
-  <div class="row"><span>Peer segment</span><select onchange="S[st.sb].seg=this.value;render()">${Object.entries(SEG).map(([k,s])=>`<option value="${k}" ${k===a.seg?"selected":""}>${s.n}</option>`).join("")}</select></div>
-  <div class="row"><span>Tier before this run</span><select onchange="S[st.sb].cur=this.value;render()">${["new",...TIERS].map(t=>`<option ${t===a.cur?"selected":""}>${t}</option>`).join("")}</select></div>
-  <div class="row"><span>Customers paid past 4 months</span>${f("paid4",a.paid4)}</div>
-  <div class="row"><span>Policies with open advances</span>${f("open",a.open)}</div>
-  <div class="row"><span>Debt owed ($)</span>${f("debt",a.debt,100)}</div>
-  <div class="row"><span>Monthly pay ($)</span>${f("pay",a.pay,100)}</div></div>`;
-  const tr=[["Correct billing errors",`${r.removed} lapses removed · ${r.counted} failed replacements counted`],
-   ["Mature evidence",r.elig.length?`windows: ${r.elig.map(w=>w+"M (n="+r.m[w]+")").join(", ")}`:"none: treated as new"],
-   ["Compare with peers",r.cmp.map(c=>`${c.w}M ${pct(c.you)} vs ${pct(c.peer)} · ${c.x.toFixed(1)}× peer lapses · z=${c.z.toFixed(1)}`).join("<br>")||"nothing to compare"],
-   ["Tier",`${r.why} → <span class="tag t-${r.tier}">${r.tier}</span>`],
-   ["Limit",r.tier==="As-paid"?"$0":`${usd(r.gross)}${a.debt?" − debt "+usd(a.debt):""} = ${usd(r.lim)} · in use ${usd(r.used)}`],
-   ["Debt recovery",a.debt?`${usd(r.per)}/mo · ${r.per?"~"+Math.ceil(a.debt/r.per)+" months":"no pay to recover from"}`:"nothing owed"]];
-  return`<div class="eyebrow">Under the hood</div><h2>Sandbox: edit any input and the engine re-runs</h2>
-  <div class="chips">${Object.keys(S).map(k=>`<button class="chip ${k===st.sb?"on":""}" onclick="st.sb='${k}';render()">${S[k].name}</button>`).join("")}<button class="chip" onclick="Object.assign(S,clone(BASE));render()">Reset data</button></div>
-  <div style="display:flex;gap:16px;flex-wrap:wrap"><label class="switch"><input type="checkbox" ${st.sbo.err?"checked":""} onchange="st.sbo.err=this.checked;render()"> Remove our billing errors</label><label class="switch"><input type="checkbox" ${st.sbo.repl?"checked":""} onchange="st.sbo.repl=this.checked;render()"> Count failed replacements</label></div>
-  <div class="gS"><div class="card"><h3>Inputs</h3>${inp}</div>
-   <div class="card"><h3>Trace</h3>${tr.map((s,i)=>`<div class="step"><span class="num">${i+1}</span><div><b>${s[0]}</b><div class="out">${s[1]}</div></div></div>`).join("")}</div>
-   <div>${agentCard(a,r)}</div></div>${navBtns("sandbox")}`;}
-function setv(path,v){let o=S[st.sb];const ks=path.split(".");for(let i=0;i<ks.length-1;i++)o=o[ks[i]];o[ks[ks.length-1]]=+v;render();}
-
-function rulesPage(){return`<div class="eyebrow">Under the hood</div><h2>The rulebook</h2><div class="card"><ol class="rules">
-  <li><b>Correct billing errors.</b> Lapses our billing log ties to wrong-date charges leave the record; clawbacks refunded. Billing operations owns the log; agents can contest with the payment record.</li>
-  <li><b>Replacements.</b> Need a signed side-by-side comparison; earn an advance only on extra premium. A replacement counts as a lapse for the agent who made it, never the original seller, unless review shows it benefited the customer.</li>
-  <li><b>Mature evidence.</b> Persistency at 4, 7 and 13 months. A window counts once ${C.MIN}+ policies are that old. If none qualify, the agent is new and starts Capped.</li>
-  <li><b>Peers.</b> Similar policies, similar customers; the next-broader group if peers are too few.</li>
-  <li><b>Tier.</b> A gap too large to be luck (z &gt; ${C.Z}) at any window → Capped. ${C.ASPAID_X}× peer lapses or worse at 7 or 13 months → As-paid. Back in line at every window → up one tier. Otherwise no change.</li>
-  <li><b>Limits.</b> Full ${usd(C.FULL_LIMIT)}; Capped ${usd(C.CAP_BASE)} plus ${usd(C.ADV)} per customer paid past 4 months, up to ${usd(C.CAP_MAX)}; As-paid $0. Unpaid debt is subtracted.</li>
-  <li><b>Agency ceiling.</b> Customers paying past 4 months × advance, plus a ${usd(C.START_ALLOW)} new-agency allowance while early missed payments are no worse than peers', minus agents' debt. Above it, new sales are paid as customers pay.</li>
-  <li><b>Debt and pauses.</b> Debt is recovered at no more than a third of each payment. A separate conduct review can pause new sales, only for suspected fraud or replacements that left customers worse off.</li></ol>
-  <p class="note">All thresholds illustrative, to be calibrated against actual losses. Every number in this prototype is computed by these rules from illustrative data.</p></div>${navBtns("rules")}`;}
-
-/* ===== Router ===== */
 let page="start";
-function render(){const el=document.getElementById("page");
-  el.innerHTML=(page==="start"?startPage():page==="how"?howPage():AP[page]?agentPage(page):page==="summit"?summitPage():page==="sandbox"?sandboxPage():rulesPage())
-   +`<div class="foot">Momentum backend prototype · Ethos PM case · all names and figures illustrative · every number computed live by the rules engine.</div>`;
-  document.querySelectorAll("#rail a").forEach(a=>a.classList.toggle("on",a.dataset.p===page));const on=document.querySelector("#rail a.on");if(on&&window.innerWidth<=860)try{on.scrollIntoView({inline:"center",block:"nearest"})}catch(e){}}
-function go(p){if(location.hash!=="#"+p)location.hash=p;else{page=p;render();}window.scrollTo(0,0);}
+function render(){document.getElementById("page").innerHTML=page==="start"?startPage():TRY[page]?agentPage(page):page==="summit"?summitPage():rulesPage();
+  document.querySelectorAll("#rail a").forEach(a=>a.classList.toggle("on",a.dataset.p===page));}
+function go(p){location.hash=p;}
 function fromHash(){const h=location.hash.slice(1);page=ORDER.includes(h)?h:"start";render();window.scrollTo(0,0);}
 window.addEventListener("hashchange",fromHash);fromHash();
 </script>
